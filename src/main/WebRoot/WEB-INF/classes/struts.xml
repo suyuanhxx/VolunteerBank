@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="non-authority" namespace="/" extends="struts-default">
+        <action name="register" class="com.vb.action.RegisterAction" method="execute">
+        	<result name="success" type="redirect">/index-login.jsp</result>
+        	<result name="error" type="redirect">/error-fail.jsp</result>
+        </action>
+        <action name="catch" class="com.vb.action.PaginationAction" method="catchTask">
+        	<result name="success">/catchtask.jsp</result>
+        	<result name="error" type="redirect">/error-fail.jsp</result>
+        </action>
+    </package>
+    
+    <package name="authority" namespace="/" extends="struts-default">
+    	<interceptors>
+    		<interceptor name="login" class="com.vb.interceptor.AuthorityInterceptor"></interceptor>
+    		<interceptor name="checkauthority" class="com.vb.interceptor.CheckAuthority"></interceptor>
+    		<interceptor-stack name="mydefault">
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    			<interceptor-ref name="login"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+    	<global-results>
+    		<result name="login" type="redirect">/login.jsp</result>
+    		<result name="noright" type="redirect">/noright.jsp</result>
+    		<result name="error" type="redirect">/error.jsp</result>
+    		<result name="notexit" type="redirect">/notexit.jsp</result>
+    	</global-results>
+    	<!-- 个人信息管理模块 -->
+		<action name="login" class="com.vb.action.LoginAction" method="login">
+		    <result name="superadmin" type="redirect">/superAdmin/profileManage.jsp</result>
+		    <result name="commonadmin" type="redirect">/commonAdmin/profileManage.jsp</result>
+		    <result name="volunteer" type="redirect">/volunteer/profileManage.jsp</result>
+		</action>
+		<action name="loginout" class="com.vb.action.LoginAction" method="loginout">
+        	<result name="success" type="redirect">/index.jsp</result>
+        </action>
+    	<action name="profilemanage" class="com.vb.action.ProfileManageAction" method="show">
+    		<result name="profile" type="redirect">/protected/profile.jsp</result>
+    	</action>
+    	<action name="profileupdate" class="com.vb.action.ProfileManageAction" method="update">
+    		 <result name="superadmin" type="redirect">/superAdmin/profileManage.jsp</result>
+		    <result name="commonadmin" type="redirect">/commonAdmin/profileManage.jsp</result>
+		    <result name="volunteer" type="redirect">/volunteer/profileManage.jsp</result>
+    	</action>
+    	<action name="modifypwd" class="com.vb.action.ProfileManageAction" method="modifypwd">
+    		<result name="success" type="redirect">/protected/modifypwd.jsp</result>
+    	</action>
+    	<action name="scorerank" class="com.vb.action.RankAction" method="scoreRank">
+    		<result name="success" type="redirect">/scorerank.jsp</result>
+    	</action>
+    	<action name="mytasklist" class="com.vb.action.TaskManageAction" method="findmytask">
+    		<result name="superadmin" type="redirect">/superAdmin/taskManage.jsp</result>
+		    <result name="commonadmin" type="redirect">/commonAdmin/taskManage.jsp</result>
+		    <result name="volunteer" type="redirect">/volunteer/taskManage-noright.jsp</result>
+    	</action>
+		<!-- 任务模块 -->
+		<action name="findtask" class="com.vb.action.TaskManageAction" method="searchById">
+			<result name="success" type="redirect">/protected/taskdetail.jsp</result>
+		</action>
+		<action name="publishtask" class="com.vb.action.TaskManageAction" method="publishtask">
+			<result name="success" type="redirect">/transit.jsp</result>
+		</action>
+		<action name="tasklist" class="com.vb.action.PaginationAction" method="tasklist">
+			<result name="success" type="redirect">/protected/applytask.jsp</result>
+		</action>
+		<action name="applytask" class="com.vb.action.TaskManageAction" method="applytask">
+			<result name="success" type="redirect">/transit1.jsp</result>
+		</action>
+		<action name="pendingtask" class="com.vb.action.PaginationAction" method="findPendingTask">
+			<result name="success" type="redirect">/protected/pendingtasklist.jsp</result>
+		</action>
+		<action name="agreetoapply" class="com.vb.action.TaskManageAction" method="agreetoApply">
+			<result name="success" type="redirect">/protected/pendingtasklist.jsp</result>
+			<result name="notask" type="redirect">/transit2.jsp</result>
+		</action>
+		<action name="disagree" class="com.vb.action.TaskManageAction" method="disagreetoApply">
+			<result name="success" type="redirect">/protected/pendingtasklist.jsp</result>
+		</action>
+		<action name="submitjob" class="com.vb.action.TaskManageAction" method="submitjob">
+			<result name="superadmin" type="redirect">/superAdmin/taskManage.jsp</result>
+		    <result name="commonadmin" type="redirect">/commonAdmin/taskManage.jsp</result>
+		    <result name="volunteer" type="redirect">/volunteer/taskManage-noright.jsp</result>
+		</action>
+		<action name="commentlist" class="com.vb.action.PaginationAction" method="commentlist">
+			<result name="success" type="redirect">/protected/publishercomment.jsp</result>
+		</action>
+		<action name="comment" class="com.vb.action.TaskManageAction" method="submitcomment">
+			<result name="success" type="redirect">commentlist.action</result>
+		</action>
+		<action name="fuzzytask" class="com.vb.action.TaskManageAction" method="fuzzyTask">
+			<result name="success" type="redirect">/protected/findtask.jsp</result>
+			<result name="change" type="redirect">/protected/findtask2.jsp</result>
+		</action>
+		<!-- 商品积分模块 -->
+		<action name="prizeshow" class="com.vb.action.PrizeManageAction" method="show">
+			<result name="manage" type="dispatcher">/superAdmin/prizeManage.jsp</result>
+			<result name="list" type="dispatcher">/protected/redeemprize.jsp</result>
+		</action>
+		<action name="addprize" class="com.vb.action.PrizeManageAction" method="add">
+			<result name="success" type="redirect">prizeshow.action</result>
+		</action>
+		<action name="deleteprize" class="com.vb.action.PrizeManageAction" method="delete">
+			<result name="success" type="redirect">prizeshow.action</result>
+		</action>
+		<action name="updateprize" class="com.vb.action.PrizeManageAction" method="update">
+			<result name="success" type="redirect">prizeshow.action</result>
+		</action>
+		<action name="selectprize" class="com.vb.action.PrizeManageAction" method="selectfuzzy">
+			<result name="success" type="redirect">/superAdmin/prizeResult.jsp</result>
+		</action>
+		<action name="redeem" class="com.vb.action.RedeemAction" method="redeem">
+			<result name="success" type="redirect">prizeshow.action</result>
+		</action>
+		<action name="getimage" class="com.vb.action.PrizeManageAction" method="getImage">
+			<result name="success" type="stream">
+				<param name="contentType">image/gif</param>
+				<param name="inputName">imageStream</param>
+			</result>
+		</action>
+		
+		
+		<!-- 返回ACTION -->
+		<action name="return" class="com.vb.action.ReturnAction" method="execute">
+			<result name="superadmin" type="redirect">/superAdmin/profileManage.jsp</result>
+		    <result name="commonadmin" type="redirect">/commonAdmin/profileManage.jsp</result>
+		    <result name="volunteer" type="redirect">/volunteer/profileManage.jsp</result>
+		</action>
+    </package>
+    
+ <!--     <package name="json" extends="json-default" >  
+        <action name="fuzzytask" class="com.vb.action.TaskManageAction" method="fuzzyTask">  
+            <result type="json" >  
+            </result>  
+        </action>  
+    </package>  -->
+</struts>    
