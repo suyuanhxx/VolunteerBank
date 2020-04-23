@@ -110,6 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="active"><a href="#tab_1_2">个人资料</a></li>
 						<li ><a href="../mytasklist.action">我的任务</a></li>
 						<li ><a href="../prizeshow.action">商品管理</a></li>
+						<li ><a href="./register.jsp">管理员注册</a></li>
 					</ul>
 				</li>
 				<li class="has-sub ">

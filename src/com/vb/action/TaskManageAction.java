@@ -334,6 +334,7 @@ public class TaskManageAction extends BasicAction implements ModelDriven<TaskT>{
 			AT.setProgress(new BigDecimal(progress));
 			if(progress==100){
 				user.setScore( user.getScore().add(new BigDecimal(taskscore)) );
+				user.setScoreAvailable( user.getScoreAvailable().add(new BigDecimal(taskscore)) );
 				uService.update(user);
 				TaskT task = taskService.findById(taskId);
 				Timestamp date = new Timestamp(new Date().getTime());

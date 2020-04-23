@@ -48,7 +48,7 @@ public class RegisterAction extends BasicAction implements ModelDriven<UserT>,Se
 		if (!check())
 			return null;
 		try {
-			user.setAuthorityId("0");
+//			user.setAuthorityId("0");
 			user.setScore(BigDecimal.ZERO);
 			uService.save(user);
 			return SUCCESS;

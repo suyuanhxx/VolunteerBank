@@ -32,6 +32,7 @@ public class MenuFilter implements Filter{
 		superMenuSet.add("/VolunteerBank/superAdmin/profileManage.jsp");
 		superMenuSet.add("/VolunteerBank/superAdmin/prizeManage.jsp");
 		superMenuSet.add("/VolunteerBank/superAdmin/prizeResult.jsp");
+		superMenuSet.add("/VolunteerBank/superAdmin/register.jsp");
 
 		commonMenuSet = new HashSet();
 		commonMenuSet.add("/VolunteerBank/commonAdmin/taskManage.jsp");

@@ -4,10 +4,10 @@ $(document).ready(function(){
 		var score = "score_" + elements[1];
 		var prizeScore = document.getElementById(score).innerHTML;
 		var ascore = document.getElementById("scoreAvailable").innerHTML;
-		alert(ascore);
+		// alert(ascore);
 		var a = parseInt(prizeScore) ;
 		var b = parseInt(ascore);
-		if( a < b ){
+		if( a <= b ){
 			document.forms["redeemprize"].submit();
 		}
 		else{

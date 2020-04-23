@@ -42,7 +42,7 @@
 <div class="content">
 
 	<form action="register.action" method="post" class="form-vertical" >
-		<h3 class="">志愿者注册</h3>
+		<h3 class="">管理员注册</h3>
 		<p>信息:</p>
 		<div class="control-group">
 			<label class="control-label visible-ie8 visible-ie9">用户名</label>
@@ -50,7 +50,7 @@
 				<div class="input-icon left">
 					<i class="icon-user"></i>
 					<input class="m-wrap placeholder-no-fix" type="text" placeholder="Username" name="username"/>
-					<input class="m-wrap placeholder-no-fix" type="hidden" name="authorityId" value="3"/>
+					<input class="m-wrap placeholder-no-fix" type="hidden" name="authorityId" value="1"/>
 				</div>
 			</div>
 		</div>
