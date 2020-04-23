@@ -201,9 +201,6 @@ public class PrizeManageAction extends BasicAction implements ModelDriven<PrizeT
     }
 	
 	public void query() {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Entering query method...");
-        }
         if (this.pagination == null) {
             this.pagination = new Pagination(10);
         }

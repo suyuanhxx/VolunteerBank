@@ -47,10 +47,10 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public void save(UserT transientInstance) {
-		log.debug("saving UserT instance");
+		log.info("saving UserT instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
-			log.debug("save successful");
+			log.info("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -58,10 +58,10 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public void delete(UserT persistentInstance) {
-		log.debug("deleting UserT instance");
+		log.info("deleting UserT instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
-			log.debug("delete successful");
+			log.info("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -69,7 +69,7 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public UserT findById(java.lang.String id) {
-		log.debug("getting UserT instance with id: " + id);
+		log.info("getting UserT instance with id: " + id);
 		try {
 			UserT instance = (UserT) getHibernateTemplate().get(
 					"com.vb.beans.UserT", id);
@@ -81,10 +81,10 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public List findByExample(UserT instance) {
-		log.debug("finding UserT instance by example");
+		log.info("finding UserT instance by example");
 		try {
 			List results = getHibernateTemplate().findByExample(instance);
-			log.debug("find by example successful, result size: "
+			log.info("find by example successful, result size: "
 					+ results.size());
 			return results;
 		} catch (RuntimeException re) {
@@ -94,7 +94,7 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding UserT instance with property: " + propertyName
+		log.info("finding UserT instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
 			String queryString = "from UserT as model where model."
@@ -135,7 +135,7 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public List findAll() {
-		log.debug("finding all UserT instances");
+		log.info("finding all UserT instances");
 		try {
 			String queryString = "from UserT";
 			return getHibernateTemplate().find(queryString);
@@ -146,11 +146,11 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public UserT merge(UserT detachedInstance) {
-		log.debug("merging UserT instance");
+		log.info("merging UserT instance");
 		try {
 			UserT result = (UserT) getHibernateTemplate().merge(
 					detachedInstance);
-			log.debug("merge successful");
+			log.info("merge successful");
 			return result;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
@@ -159,10 +159,10 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public void attachDirty(UserT instance) {
-		log.debug("attaching dirty UserT instance");
+		log.info("attaching dirty UserT instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
-			log.debug("attach successful");
+			log.info("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -170,10 +170,10 @@ public class UserTDAO extends HibernateDaoSupport {
 	}
 
 	public void attachClean(UserT instance) {
-		log.debug("attaching clean UserT instance");
+		log.info("attaching clean UserT instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
+			log.info("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
 			throw re;
@@ -190,7 +190,7 @@ public class UserTDAO extends HibernateDaoSupport {
 	 * @return
 	 */
 	public List Orderfind(String RowName , String order){
-		log.debug("按顺序查询（降序和升序）");
+		log.info("按顺序查询（降序和升序）");
 		try{
 			//select * from UserT order by score desc;
 			String hql = "from UserT order by " + RowName + " " + order;

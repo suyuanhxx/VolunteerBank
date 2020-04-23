@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<!-- 连接Oracle-->
+	<!-- 	<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@192.168.1.150:1521:DB302"></property>
+		<property name="username" value="team14"></property>
+		<property name="password" value="SHM123"></property> -->
+		<!-- 连接MySQL-->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/team14?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="12345678"></property>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- Oracle的方言 -->
+				<!--  <prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>-->
+				<!-- MySQL的方言-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/vb/hibernateconfig/UserT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/TaskT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/PrizeT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/AccepterTaskT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/ActivityT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/AuthorityT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/PublisherTaskT.hbm.xml</value>
+				<value>com/vb/hibernateconfig/PrizeUserT.hbm.xml</value>
+			</list>
+		</property></bean>
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+  		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager"/>
+	<bean id="UserTDAO" class="com.vb.dao.UserTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="UserTService" class="com.vb.service.UserTService">
+		<property name="userdao" ref="UserTDAO"/>
+	</bean>
+	<bean id="LoginAction" class="com.vb.action.LoginAction">
+		<property name="uService" ref="UserTService"></property>
+	</bean>
+	<bean id="RegisterAction" class="com.vb.action.RegisterAction">
+		<property name="uService" ref="UserTService"></property>
+	</bean>
+	<bean id="ProfileAction" class="com.vb.action.ProfileManageAction">
+		<property name="uService" ref="UserTService"></property>
+	</bean>
+	
+	<bean id="TaskTDAO" class="com.vb.dao.TaskTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="PrizeTDAO" class="com.vb.dao.PrizeTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="AccepterTaskTDAO" class="com.vb.dao.AccepterTaskTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="ActivityTDAO" class="com.vb.dao.ActivityTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="AuthorityTDAO" class="com.vb.dao.AuthorityTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="PublisherTaskTDAO" class="com.vb.dao.PublisherTaskTDAO">
+			<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="PrizeUserTDAO" class="com.vb.dao.PrizeUserTDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="PageDAO" class="com.vb.dao.PaginationDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+</beans>

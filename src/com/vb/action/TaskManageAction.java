@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.vb.beans.AccepterTaskT;

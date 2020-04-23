@@ -10,9 +10,7 @@ public class RankAction extends BasicAction{
 	private UserTService uService = new UserTService();
 	private Page page;
 	public String scoreRank(){
-		if (LOG.isDebugEnabled()) {
-            LOG.debug("Entering query method...");
-        }
+
         if (this.pagination == null) {
             this.pagination = new Pagination(10);
         }

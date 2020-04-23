@@ -57,9 +57,7 @@ public class BasicAction extends ActionSupport implements SessionAware,ServletRe
     }  
       
     public String preAdd(){  
-        if (LOG.isDebugEnabled()) {  
-            LOG.debug("preAdd query method...");  
-        }  
+
         return INPUT;  
     }
 

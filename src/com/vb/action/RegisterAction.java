@@ -1,6 +1,7 @@
 package com.vb.action;
 
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +49,7 @@ public class RegisterAction extends BasicAction implements ModelDriven<UserT>,Se
 			return null;
 		try {
 			user.setAuthorityId("0");
+			user.setScore(BigDecimal.ZERO);
 			uService.save(user);
 			return SUCCESS;
 		} catch (RuntimeException e) {
@@ -63,17 +65,17 @@ public class RegisterAction extends BasicAction implements ModelDriven<UserT>,Se
 			PrintWriter out = response.getWriter();
 			out.println("<message>");
 
-			String old = request.getParameter("name");
+			String old = request.getParameter("username");
 			if (old != null) {
 				UserT userd= uService.findById(user.getUsername());
 				if (userd==null) {
 					out.println("<usernamemes>"
-							+ "用户名已存在"
+							+ "注册成功"
 							+ "</usernamemes>");
 					result = true;
 				} else {
 					out.println("<usernamemes>"
-							+ "username not exist,you can use it"
+							+ "用户名已存在"
 							+ "</usernamemes>");
 					result = false;
 				}
